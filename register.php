@@ -1,117 +1,184 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="Online Shopping System, a project built for my SE-611 class" content="">
-  <meta name="James Reid Cooper" content="">
 
-  <title>Online Shopping System</title>
+<?php
+include("includes/header.php");
+?>
 
-  <!-- Bootstrap core CSS -->
-  <link href="includes/css/bootstrap.min.css" rel="stylesheet">
+<body>
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    </head>
+  <?php
 
-    <body>
+  function dropDownMenu($array, $name, $value){
+    echo '<select name='.$name.' class="form-control">';
+    foreach ($array as $ar){
+      echo '<option value="'.$ar.'"';
 
-      <?php
+      if($ar == $value) echo 'selected = "selected"';
 
-      function dropDownMenu($array, $name, $value){
-        echo '<select name='.$name.' class="form-control">';
-        foreach ($array as $ar){
-          echo '<option value="'.$ar.'"';
+      echo '>'.$ar.'</option>';
+    }
+    echo '</select>';
+  }
+  ?>
 
-          if($ar == $value) echo 'selected = "selected"';
+  <?php
+  include("includes/login_navbar.php");
+  ?>
 
-          echo '>'.$ar.'</option>';
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Registration</h1>
+      <div style ="color: red">
+
+        <?php
+
+        // when the form in this page is submitted
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          if($_POST['button'] == "Register") {
+
+            $uname = $_POST['uname'];
+            $psword = $_POST['psword'];
+            $confirm_password = $_POST['confirm_password'];
+            $fname = $_POST['fname'];
+            $lname = $_POST['lname'];
+            $address = $_POST['address'];
+            $city = $_POST['city'];
+            $state = $_POST['state'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $role = $_POST['role'];
+            $zip_code = $_POST['zip-code'];
+
+                // Role Numbers
+            if ($role == 'Admin'){
+              $role = 1;
+            }
+
+            if ($role == 'Vendor'){
+              $role = 2;
+            }
+
+            if ($role == 'User'){
+              $role = 3;
+            }
+
+            // Define an array of error
+            $error = array();
+
+            if (empty($uname)){
+              $error[] = "You forgot to enter username.";
+            }
+            if (empty($psword)){
+              $error[] = "You forgot to enter password.";
+            }
+            if (empty($confirm_password)){
+              $error[] = "You forgot to confirm your password.";
+            }
+            if (empty($fname)){
+              $error[] = "You forgot to enter a first name.";
+            }
+            if (empty($lname)){
+              $error[] = "You forgot to enter a last name.";
+            }
+            if (empty($address)){
+              $error[] = "You forgot to enter a address.";
+            }
+            if (empty($city)){
+              $error[] = "You forgot to enter a city.";
+            }
+            if (empty($zip_code)){
+              $error[] = "You forgot to enter a zip code.";
+            }
+            if (empty($email)){
+              $error[] = "You forgot to enter a email.";
+            }
+            if (empty($phone)){
+              $error[] = "You forgot to enter a phone.";
+            }
+            if ($psword != $confirm_password){
+              $error[] = "Your passwords do not match.";
+            }
+
+            // Password Requirements
+            // if( strlen($psword) < 8) {
+            //  $error[] = "Password too short!";
+            // }
+
+            // if( !preg_match("#[0-9]+#", $psword) ) {
+            //  $error[] = "Password must include at least one number! ";
+            // }
+
+            // Check to see if anything in $error.
+            if (empty($error)){
+
+              //Includes database connection file for authorization
+              include("includes/db_connection.php");
+
+              // define a query
+              $q = "INSERT INTO shopping_users (username, password, firstName, lastName, zipCode, address, city, state, email, phone, role, reg_date) VALUES ('$uname', SHA1('$psword'), '$fname', '$lname', '$zip_code', '$address', '$city', '$state', '$email', '$phone', '$role', now())";
+
+              // execute the query
+              $r = mysqli_query($dbc, $q);
+              if ($r) echo "Registration Complete!";
+              else echo "Sorry, failed connection";
+
+            } else {
+              foreach ($error as $msg) {
+                echo $msg;
+                echo '<br>';
+              }
+            }
+          }
         }
-        echo '</select>';
-      }
-      ?>
-
-      <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">Online Shopping System</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
-              <div class="form-group">
-                <input type="text" placeholder="Email" class="form-control">
-              </div>
-              <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control">
-              </div>
-              <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-          </div><!--/.navbar-collapse -->
-        </div>
-      </nav>
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-          <h1>Registration</h1>
-        </div>
+        ?>
       </div>
+    </div>
+  </div>
 
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <center><h2>Please Enter in the Following Information to Register!</h2></center>
-          <div class="col-md-6 col-md-offset-3">
-            <form>
-              <div class="form-group">
-                <label for="InputUsername1">Username</label>
-                <input type="username" class="form-control" id="InputUsername1" placeholder="Enter Username">
-              </div>
-              <div class="form-group">
-                <label for="InputFirstName1">First Name</label>
-                <input type="firstname" class="form-control" id="InputFirstName1" placeholder="Enter First Name">
-              </div>
-              <div class="form-group">
-                <label for="InputLastName1">Last Name</label>
-                <input type="lastname" class="form-control" id="InputLastName1" placeholder="Enter Last Name">
-              </div>
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <center><h2>Please Enter in the Following Information to Register!</h2></center>
+      <div class="col-md-6 col-md-offset-3">
+        <form action="" method="POST">
+          <div class="form-group">
+            <label for="InputUsername1">Username</label>
+            <input type="username" class="form-control" id="InputUsername1" name="uname" placeholder="Enter Username" value="<?php if(isset($_POST['uname'])) echo $_POST['uname']; ?>">
+          </div>
+          <div class="form-group">
+            <label for="InputFirstName1">First Name</label>
+            <input type="firstname" class="form-control" id="InputFirstName1" name="fname" placeholder="Enter First Name" value="<?php if(isset($_POST['fname'])) echo $_POST['fname']; ?>">
+          </div>
+          <div class="form-group">
+            <label for="InputLastName1">Last Name</label>
+            <input type="lastname" class="form-control" id="InputLastName1" name="lname" placeholder="Enter Last Name" value="<?php if(isset($_POST['lname'])) echo $_POST['lname']; ?>">
+          </div>
+          <div class="form-group">
+            <label for="InputPassword1">Password</label>
+            <input type="password" class="form-control" id="InputPassword1" name="psword" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="InputConfirmPassword1">Confirm Password</label>
+            <input type="password" class="form-control" id="InputConfirmPassword1" name="confirm_password" placeholder="Confirm Password">
+          </div>
 
-              <div class="form-group">
-                <label for="InputPassword1">Password</label>
-                <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
-              </div>
-              <div class="form-group">
-                <label for="InputConfirmPassword1">Confirm Password</label>
-                <input type="confirm_password" class="form-control" id="InputConfirmPassword1" placeholder="Confirm Password">
-              </div>
+          <div class="form-group">
+            <label for="InputEmail1">Email</label>
+            <input type="email" class="form-control" id="InputEmail1" name="email" placeholder="Enter Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
+          </div>
 
-              <div class="form-group">
-                <label for="InputEmail1">Email</label>
-                <input type="email" class="form-control" id="InputEmail1" placeholder="Enter Email">
-              </div>
-
-              <div class="form-group">
-                <label for="InputAddress1">Address</label>
-                <input type="address" class="form-control" id="InputAddress1" placeholder="Enter Address">
-              </div>
-              <div class="form-group">
-                <label for="InputCity1">City</label>
-                <input type="city" class="form-control" id="InputCity1" placeholder="Enter City">
-              </div>
-              <div class="form-group">
+          <div class="form-group">
+            <label for="InputAddress1">Address</label>
+            <input type="address" class="form-control" id="InputAddress1" name="address" placeholder="Enter Address" value="<?php if(isset($_POST['address'])) echo $_POST['address']; ?>">
+          </div>
+          <div class="form-group">
+            <label for="InputCity1">City</label>
+            <input type="city" class="form-control" id="InputCity1" name="city" placeholder="Enter City" value="<?php if(isset($_POST['city'])) echo $_POST['city']; ?>">
+          </div>
+          <div class="form-group">
                 <!-- Single button
                 <input type="state" class="form-control" id="InputState1" placeholder="Enter State"> -->
                 <label for="InputState1">State</label>
@@ -129,34 +196,37 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="InputZipcode1">Zipcode</label>
-                <input type="zipcode" class="form-control" id="InputZipcode1" placeholder="Enter Zipcode">
+                <label for="InputZipcode1">Zip-Code</label>
+                <input type="zipcode" class="form-control" id="InputZipcode1" name="zip-code" placeholder="Enter Zipcode" value="<?php if(isset($_POST['zip-code'])) echo $_POST['zip-code']; ?>">
               </div>
 
               <div class="form-group">
                 <label for="InputPhone1">Phone Number</label>
-                <input type="phone" class="form-control" id="InputPhone1" placeholder="Enter Phone Number">
+                <input type="phone" class="form-control" id="InputPhone1" name="phone" placeholder="Enter Phone Number" value="<?php if(isset($_POST['phone'])) echo $_POST['phone']; ?>">
               </div>
 
-
-              <button type="submit" class="btn btn-default">Submit</button>
+              <div class="form-group">
+                <b>Select Role</b>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="role" id="vendor_role" value="Vendor" <?php if (isset($_POST['role']) && $_POST['role']=="Vendor") echo "checked";?>>
+                    Vendor/Seller
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="role" id="user_role" value="User" <?php if (isset($_POST['role']) && $_POST['role']=="User") echo "checked";?>>
+                    User/Customer
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-default" name="button" value="Register">Submit</button>
             </form>
-
           </div>
         </div>
-
-        <?php
-        include("includes/footer.php");
-        ?>
-
-
-      </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="includes/js/bootstrap.min.js"></script>
-  </body>
-  </html>
+      </div><!-- /.container -->
+      <?php
+      include("includes/footer.php");
+      ?>
+    </body>
+    </html>
