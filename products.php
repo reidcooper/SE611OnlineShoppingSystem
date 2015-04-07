@@ -8,14 +8,14 @@ include("includes/header.php");
 <body>
 
   <?php
-  include("includes/vendor_navbar.php");
+  include("includes/user_navbar.php");
   ?>
 
   <div class="container">
 
     <div class="user-starter-template">
       <h1>Online Registration System</h1>
-      <p class="lead">Welcome, here you can add, edit, and delete products for your account! Below is the list of your products. Only some of the product's attributes are displayed.</p>
+      <p class="lead">Available Products</p>
       <?php
       if(isset($_GET['message'])){
         echo '<div style ="color: red">'.$_GET['message'].'</div>';
@@ -23,11 +23,11 @@ include("includes/header.php");
       ?>
     </div>
 
-    <div class="vendor-product-options btn-group btn-group-justified" role="group">
+    <!-- <div class="vendor-product-options btn-group btn-group-justified" role="group">
       <div class="btn-group" role="group">
         <p><a class="btn btn-success" href="add_product.php" role="button" value="register">Add Product &raquo;</a></p>
       </div>
-    </div>
+    </div> -->
 
     <div class="product-listing">
 
@@ -37,7 +37,7 @@ include("includes/header.php");
       include("includes/db_connection.php");
 
   // define a query
-      $q = "SELECT * FROM product_master  WHERE username = '$uname'";
+      $q = "SELECT * FROM product_master";
 
   // execute the query
       $r = mysqli_query($dbc, $q);
@@ -69,20 +69,19 @@ include("includes/header.php");
               echo '<td><b>Stock: </b>'.($row['stock']).'</td>';
             }
             echo '<td><b>Description: </b>'.($row['description']).'</td>';
-            echo '<td><a href="edit_product.php?id='.$row['product_id'].'"><b>Edit</b></a></td>';
-            echo '<td><a href="delete_product.php?id='.$row['product_id'].'"><b>Delete</b></a></td>';
+            echo '<td><a href="view_product.php?id='.$row['product_id'].'"><b>View</b></a></td>';
             echo '</tr>';
 
           }
           echo '</table>';
         }  else {
           echo '<div style ="color: red">';
-          echo 'There are no products entered.';
+          echo 'There are no products Available.';
           echo '</div>';
         }
       }else {
         echo '<div style ="color: red">';
-        echo 'There are no products entered.';
+        echo 'There are no products Available.';
         echo '</div>';
       }
 

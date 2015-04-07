@@ -12,7 +12,7 @@ body {
 }
 
 img {
-    max-width: 30%;
+    max-width: 80%;
     height: auto;
     width: auto\9; /* ie8 */
 }

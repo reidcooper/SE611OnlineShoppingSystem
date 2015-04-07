@@ -18,7 +18,7 @@
         <li><a href="transactions.php">Transactions</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="view_cart.php">View Cart</a></li>
+        <li><a href="index.php">Log Out</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
