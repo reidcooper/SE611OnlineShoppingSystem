@@ -12,7 +12,7 @@ body {
 }
 
 img {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
     width: auto\9; /* ie8 */
 }
@@ -24,4 +24,8 @@ img {
 .table-no-border>tbody>tr>td,
 .table-no-border>tfoot>tr>td {
   border-top: none;
+}
+
+.process-transaction-customer-info {
+    text-align: left;
 }

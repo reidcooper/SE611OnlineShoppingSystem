@@ -81,7 +81,8 @@ include("includes/header.php");
             echo '<td><b>Status: </b></td>';
             echo '<td><b>Item Bought: </b></td>';
             echo '<td><b>Quantity: </b></td>';
-            // echo '<td></td>';
+            echo '<td></td>';
+            echo '<td></td>';
             echo '</tr>';
             while ($row = mysqli_fetch_array($r)) {
 
@@ -95,11 +96,13 @@ include("includes/header.php");
               // echo '<td>'.outPutItems($unserial).'</td>';
               echo '<td>'.($row['name']).'</td>';
               echo '<td>'.($row['quantity']).'</td>';
-              // if ($row['processed'] == "Pending"){
-              //   echo '<td><a href="remove_transaction.php?id='.$row['transaction_id'].'"><b>Cancel</b></a></td>';
-              // } else {
-              //   echo '<td>Processed!</td>';
-              // }
+              if ($row['processed'] != "Delivered"){
+                echo '<td><a href="process_transaction.php?id='.$row['transaction_id'].'"><b>Process</b></a></td>';
+                echo '<td><a href="remove_transaction.php?id='.$row['transaction_id'].'"><b>Cancel</b></a></td>';
+              } else {
+                echo '<td>Processed!</td>';
+                echo '<td>Processed!</td>';
+              }
               echo '</tr>';
 
             }

@@ -106,7 +106,7 @@ include("includes/header.php");
         <?php
         // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
         echo '<div class="col-md-6">';
-        echo '<img src="https://baconmockup.com/400/300" alt="includes/images/dollar.jpg">';
+        echo '<img src="http://placekitten.com/g/200/300" alt="includes/images/dollar.jpg">';
         echo '</div>';
 
         echo '<div class="col-md-6">';

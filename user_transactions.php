@@ -8,7 +8,7 @@ include("includes/header.php");
 <body>
 
   <?php
-  include("includes/vendor_navbar.php");
+  include("includes/user_navbar.php");
   ?>
 
   <div class="container">
@@ -62,7 +62,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
       // define a query
-        $q = "SELECT * FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id WHERE transactions.vendor = '$uname'";
+        $q = "SELECT * FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id WHERE transactions.username = '$uname'";
 
       // execute the query
         $r = mysqli_query($dbc, $q);
@@ -81,7 +81,7 @@ include("includes/header.php");
             echo '<td><b>Status: </b></td>';
             echo '<td><b>Item Bought: </b></td>';
             echo '<td><b>Quantity: </b></td>';
-            // echo '<td></td>';
+            echo '<td></td>';
             echo '</tr>';
             while ($row = mysqli_fetch_array($r)) {
 
@@ -95,11 +95,11 @@ include("includes/header.php");
               // echo '<td>'.outPutItems($unserial).'</td>';
               echo '<td>'.($row['name']).'</td>';
               echo '<td>'.($row['quantity']).'</td>';
-              // if ($row['processed'] == "Pending"){
-              //   echo '<td><a href="remove_transaction.php?id='.$row['transaction_id'].'"><b>Cancel</b></a></td>';
-              // } else {
-              //   echo '<td>Processed!</td>';
-              // }
+              if ($row['processed'] == "Pending"){
+                echo '<td><a href="remove_transaction.php?id='.$row['transaction_id'].'"><b>Cancel</b></a></td>';
+              } else {
+                echo '<td>Processed!</td>';
+              }
               echo '</tr>';
 
             }

@@ -39,26 +39,38 @@ include("includes/header.php");
 
       ?>
       <?php
+
+      $total_cost_array = array();
+      $products_bought = array();
+
       if(isset($r)){
         if (mysqli_num_rows($r)){
 
-          $total_cost_array = array();
-          $products_bought = array();
-
-          echo '<table class="table-no-border table-condensed">';
+          echo '<table class="table table-striped table-bordered">';
+          echo '<tr>';
+          echo '<td></td>';
+          echo '<td><b>Item: </b></td>';
+          echo '<td><b>Cost (Per Unit): </b>$</td>';
+          echo '<td><b>Quantity: </b></td>';
+          echo '<td><b>Final Product Cost: </b></td>';
+          echo '<td></td>';
+          echo '</tr>';
           while ($row = mysqli_fetch_array($r)) {
 
             $discount_cost = ($row['cost'] - $row['discounted_amount']);
             $total_cost_array[] = ($row['quantity'] * $discount_cost);
-            $products_bought[] = $row['product_id'];
+            // $products_bought[] = $row['product_id'];
+
+            // Each item bought will contain an array which holds [Product ID, Quantity of that Product, Product Vendor, and Total Cost for that Product]
+            array_push($products_bought, array($row['product_id'], $row['quantity'], $row['username'], ($row['quantity'] * $discount_cost)));
 
             echo '<tr>';
             // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
-            echo '<td><img src="https://baconmockup.com/200/100" alt="includes/images/dollar.jpg"></td>';
-            echo '<td><b>Name: </b>'.($row['name']).'</td>';
-            echo '<td><b>Cost (Per Unit): </b>$'.($discount_cost).'</td>';
-            echo '<td><b>Quantity: </b>'.($row['quantity']).'</td>';
-            echo '<td><b><u>Final Product Cost:</u> </b>$'.($row['quantity']* $discount_cost).'</td>';
+            echo '<td><img src="http://placekitten.com/g/200/138" alt="includes/images/dollar.jpg"></td>';
+            echo '<td>'.($row['name']).'</td>';
+            echo '<td>$'.($discount_cost).'</td>';
+            echo '<td>'.($row['quantity']).'</td>';
+            echo '<td>$'.($row['quantity']* $discount_cost).'</td>';
             echo '<td><a href="delete_item_cart.php?id='.$row['shopping_tally_id'].'"><b>Remove</b></a></td>';
             echo '</tr>';
 
@@ -75,8 +87,16 @@ include("includes/header.php");
         echo '</div>';
       }
 
+      // print_r($products_bought);
+      // echo '<br>';
+
       // Serialize array
-      $serial = serialize($products_bought);
+      // $serial = serialize($products_bought);
+
+      // foreach ($products_bought as $item){
+      //   echo $item[0];
+      //   echo $item[1];
+      // }
 
       // $unserial = unserialize($serial);
       // echo $unserial;
@@ -107,11 +127,14 @@ include("includes/header.php");
               //Includes database connection file for authorization
             include("includes/db_connection.php");
 
+            // Each item bought will contain an array which holds [Product ID, Quantity of that Product, Product Vendor, and Total Cost for that Product]
+            foreach ($products_bought as $item){
               // define a query
-            $q = "INSERT INTO transactions (username, items_bought, processed, total_cost, trans_date) VALUES ('$uname', '$serial', '$processed', '$total_cost', '$date')";
-
+              $q = "INSERT INTO transactions (username, product_id, processed, total_cost, trans_date, quantity, vendor) VALUES ('$uname', '$item[0]', '$processed', '$item[3]', '$date', '$item[1]', '$item[2]')";
               // execute the query
-            $r = mysqli_query($dbc, $q);
+              $r = mysqli_query($dbc, $q);
+
+            }
 
             $u = "DELETE FROM cart WHERE username='$uname'";
 

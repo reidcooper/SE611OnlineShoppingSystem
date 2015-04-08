@@ -15,7 +15,7 @@
         <li><a href="products.php">Products</a></li>
         <li><a href="edit_profile_user.php">Edit Profile</a></li>
         <li><a href="change_password_user.php">Change Password</a></li>
-        <li><a href="transactions.php">Transactions</a></li>
+        <li><a href="user_transactions.php">Transactions</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="view_cart.php">View Cart</a></li>
