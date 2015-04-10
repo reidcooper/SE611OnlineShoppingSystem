@@ -8,27 +8,20 @@ include("includes/header.php");
 <body>
 
   <?php
-  include("includes/user_navbar.php");
+  include("includes/admin_navbar.php");
   ?>
 
   <div class="container">
 
     <div class="user-starter-template">
       <h1>Online Registration System</h1>
-      <p class="lead">Available Products</p>
+      <p class="lead">Welcome, here you can add, edit, and delete products! Below is the list of products. Only some of the product's attributes are displayed.</p>
       <?php
       if(isset($_GET['message'])){
         echo '<div style ="color: red">'.$_GET['message'].'</div>';
       }
       ?>
     </div>
-
-    <!-- <div class="vendor-product-options btn-group btn-group-justified" role="group">
-      <div class="btn-group" role="group">
-        <p><a class="btn btn-success" href="add_product.php" role="button" value="register">Add Product &raquo;</a></p>
-      </div>
-    </div> -->
-
     <div class="product-listing">
 
       <?php
@@ -47,7 +40,7 @@ include("includes/header.php");
       <?php
       if(isset($r)){
         if (mysqli_num_rows($r)){
-          echo '<table class="table-no-border">';
+          echo '<table class="table table-striped table-bordered">';
           while ($row = mysqli_fetch_array($r)) {
 
             echo '<tr>';
@@ -57,7 +50,7 @@ include("includes/header.php");
             echo '<tr>';
             // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
             echo '<td><img src="http://placekitten.com/g/408/287" alt="includes/images/dollar.jpg"></td>';
-            //echo '<td><b>Item: </b>'.($row['name']).'</td>';
+            echo '<td><b>Name: </b>'.($row['name']).'</td>';
             if ($row['discounted'] == "yes"){
               echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';
             } else {
@@ -69,20 +62,20 @@ include("includes/header.php");
               echo '<td><b>Stock: </b>'.($row['stock']).'</td>';
             }
             echo '<td><b>Description: </b>'.($row['description']).'</td>';
-            echo '<td><b>Category: </b>'.($row['category']).'</td>';
-            echo '<td><a href="view_product.php?id='.$row['product_id'].'"><b>View</b></a></td>';
+            echo '<td><a href="edit_product_admin.php?id='.$row['product_id'].'"><b>Edit</b></a></td>';
+            echo '<td><a href="delete_product_admin.php?id='.$row['product_id'].'"><b>Delete</b></a></td>';
             echo '</tr>';
 
           }
           echo '</table>';
         }  else {
           echo '<div style ="color: red">';
-          echo 'There are no products Available.';
+          echo 'There are no products entered.';
           echo '</div>';
         }
       }else {
         echo '<div style ="color: red">';
-        echo 'There are no products Available.';
+        echo 'There are no products entered.';
         echo '</div>';
       }
 

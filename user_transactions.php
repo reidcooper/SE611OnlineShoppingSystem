@@ -91,14 +91,14 @@ include("includes/header.php");
               echo '<td>'.($row['trans_date']).'</td>';
               echo '<td>'.($row['vendor']).'</td>';
               echo '<td>$'.($row['total_cost']).'</td>';
-              echo '<td>'.($row['processed']).'</td>';
+              include("includes/process_color_status.php");
               // echo '<td>'.outPutItems($unserial).'</td>';
               echo '<td>'.($row['name']).'</td>';
               echo '<td>'.($row['quantity']).'</td>';
               if ($row['processed'] == "Pending"){
-                echo '<td><a href="remove_transaction.php?id='.$row['transaction_id'].'"><b>Cancel</b></a></td>';
+                echo '<td><a href="remove_transaction.php?id='.$row['transaction_id'].'"><b>Cancel?</b></a></td>';
               } else {
-                echo '<td>Processed!</td>';
+                echo '<td><font color="green"><b>Processed</b></font></td>';
               }
               echo '</tr>';
 

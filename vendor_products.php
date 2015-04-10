@@ -37,7 +37,7 @@ include("includes/header.php");
       include("includes/db_connection.php");
 
   // define a query
-      $q = "SELECT * FROM product_master  WHERE username = '$uname'";
+      $q = "SELECT * FROM product_master  WHERE username = '$uname' AND deleted != 'yes'";
 
   // execute the query
       $r = mysqli_query($dbc, $q);

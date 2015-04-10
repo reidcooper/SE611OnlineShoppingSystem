@@ -12,7 +12,7 @@ if(empty($_COOKIE['uname'])){
 	$fname = $_COOKIE['fname'];
 }
 
-if ($_SESSION['role'] != 2 || empty($_SESSION['role'])){
+if ($_SESSION['role'] != 1 || empty($_SESSION['role'])){
 	header('LOCATION: index.php');
 } else {
 	if(isset($_GET['id'])){
@@ -28,7 +28,7 @@ if ($_SESSION['role'] != 2 || empty($_SESSION['role'])){
 
 		if($r){
 			$message = "Successful Deletion of Product!";
-			header('LOCATION: vendor_products.php?message='.$message.'');
+			header('LOCATION: admin_products.php?message='.$message.'');
 		} else {
 			echo "Cannot Delete Record.";
 		}

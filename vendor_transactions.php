@@ -62,7 +62,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
       // define a query
-        $q = "SELECT * FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id WHERE transactions.vendor = '$uname'";
+        $q = "SELECT *, transactions.username AS buyer FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id WHERE transactions.vendor = '$uname'";
 
       // execute the query
         $r = mysqli_query($dbc, $q);
@@ -76,7 +76,7 @@ include("includes/header.php");
             echo '<table class="table table-striped table-bordered">';
             echo '<tr>';
             echo '<td><b>Transaction Date: </b></td>';
-            echo '<td><b>Vendor: </b></td>';
+            echo '<td><b>Buyer: </b></td>';
             echo '<td><b>Total Cost: </b></td>';
             echo '<td><b>Status: </b></td>';
             echo '<td><b>Item Bought: </b></td>';
@@ -90,19 +90,20 @@ include("includes/header.php");
 
               echo '<tr>';
               echo '<td>'.($row['trans_date']).'</td>';
-              echo '<td>'.($row['vendor']).'</td>';
+              echo '<td>'.($row['buyer']).'</td>';
               echo '<td>$'.($row['total_cost']).'</td>';
-              echo '<td>'.($row['processed']).'</td>';
+              include("includes/process_color_status.php");
               // echo '<td>'.outPutItems($unserial).'</td>';
               echo '<td>'.($row['name']).'</td>';
               echo '<td>'.($row['quantity']).'</td>';
               if ($row['processed'] != "Delivered"){
-                echo '<td><a href="process_transaction.php?id='.$row['transaction_id'].'"><b>Process</b></a></td>';
-                echo '<td><a href="remove_transaction.php?id='.$row['transaction_id'].'"><b>Cancel</b></a></td>';
+                echo '<td><a href="process_transaction.php?id='.$row['transaction_id'].'"><b>Process?</b></a></td>';
+                echo '<td><a href="remove_transaction_vendor.php?id='.$row['transaction_id'].'"><b>Cancel?</b></a></td>';
               } else {
-                echo '<td>Processed!</td>';
-                echo '<td>Processed!</td>';
+                echo '<td><b>-</b></td>';
+                echo '<td><font color="green"><b>Processed</b></font></td>';
               }
+
               echo '</tr>';
 
             }

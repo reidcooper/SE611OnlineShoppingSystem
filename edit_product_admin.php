@@ -8,7 +8,7 @@ include("includes/header.php");
 <body>
 
   <?php
-  include("includes/vendor_navbar.php");
+  include("includes/admin_navbar.php");
   ?>
 
   <?php

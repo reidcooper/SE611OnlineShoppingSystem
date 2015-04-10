@@ -8,14 +8,14 @@ include("includes/header.php");
 <body>
 
   <?php
-  include("includes/vendor_navbar.php");
+  include("includes/admin_navbar.php");
   ?>
 
   <div class="container">
 
     <div class="user-starter-template">
       <h1>Online Registration System</h1>
-      <p class="lead">Welcome! Here are your all your transactions.</p>
+      <p class="lead">Welcome! Here are recent transactions.</p>
       <?php
       if(isset($_GET['message'])){
         echo '<div style ="color: red">'.$_GET['message'].'</div>';
@@ -62,7 +62,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
       // define a query
-        $q = "SELECT *, transactions.username AS buyer FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id WHERE transactions.vendor = '$uname'";
+        $q = "SELECT *, transactions.username AS buyer FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id";
 
       // execute the query
         $r = mysqli_query($dbc, $q);
@@ -77,6 +77,7 @@ include("includes/header.php");
             echo '<tr>';
             echo '<td><b>Transaction Date: </b></td>';
             echo '<td><b>Buyer: </b></td>';
+            echo '<td><b>Vendor: </b></td>';
             echo '<td><b>Total Cost: </b></td>';
             echo '<td><b>Status: </b></td>';
             echo '<td><b>Item Bought: </b></td>';
@@ -90,7 +91,9 @@ include("includes/header.php");
               echo '<tr>';
               echo '<td>'.($row['trans_date']).'</td>';
               echo '<td>'.($row['buyer']).'</td>';
+              echo '<td>'.($row['vendor']).'</td>';
               echo '<td>$'.($row['total_cost']).'</td>';
+              // 'Processed', 'On-Delivery', 'Delivered'
               include("includes/process_color_status.php");
               // echo '<td>'.outPutItems($unserial).'</td>';
               echo '<td>'.($row['name']).'</td>';
