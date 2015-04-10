@@ -84,7 +84,10 @@ if ($_SESSION['role'] != 2 || empty($_SESSION['role'])){
    } else {
      echo "Cannot Delete Record.";
    }
- }
+ } else {
+  $message = "Cannot Delete Record.";
+  header('LOCATION: vendor_transactions.php?message='.$message.'');
+}
 }
 
 ?>

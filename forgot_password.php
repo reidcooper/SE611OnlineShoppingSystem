@@ -31,13 +31,13 @@ include("includes/header.php");
 
         function send_email($new_password, $user_email, $username){
                     // the message
-          $msg = "Hi '$username',\n\nYou have reset your password. Please refer to the information below for your new temporary password. Use this password to login with your account and then use the Change Password tab to change your account password. Your current password is listed below.\n\nNew Password:\n'$new_password'\n\nThank you for your understanding. We hope to see you soon!\n\n- Monmouth University Online Registration System";
+          $msg = "Hi '$username',\n\nYou have reset your password. Please refer to the information below for your new temporary password. Use this password to login with your account and then use the Change Password tab to change your account password. Your current password is listed below.\n\nNew Password:\n'$new_password'\n\nThank you for your understanding. We hope to see you soon!\n\n- Online Shopping System";
 
                     // use wordwrap() if lines are longer than 70 characters
           $msg = wordwrap($msg,100);
 
                     // send email
-          mail($user_email,"Your Password Has Been Reset - Monmouth University Online Registration System",$msg);
+          mail($user_email,"Your Password Has Been Reset - Online Shopping System",$msg);
         }
 
         session_start();
@@ -119,7 +119,7 @@ include("includes/header.php");
             <label for="InputUsername1">Username</label>
             <input type="username" class="form-control" id="InputUsername1" name="uname" placeholder="Enter Username" value="<?php if(isset($_POST['uname'])) echo $_POST['uname']; ?>">
           </div>
-          <button type="submit" class="btn btn-default" name="button" value="Register">Submit</button>
+          <button type="submit" class="btn btn-default" name="button" value="Reset">Submit</button>
         </form>
 
       </div>

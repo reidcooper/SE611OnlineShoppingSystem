@@ -40,7 +40,7 @@ include("includes/header.php");
       <?php
       if(isset($r)){
         if (mysqli_num_rows($r)){
-          echo '<table class="table table-striped table-bordered">';
+          echo '<table class="table-no-border">';
           while ($row = mysqli_fetch_array($r)) {
 
             echo '<tr>';
@@ -51,6 +51,7 @@ include("includes/header.php");
             // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
             echo '<td><img src="http://placekitten.com/g/408/287" alt="includes/images/dollar.jpg"></td>';
             echo '<td><b>Name: </b>'.($row['name']).'</td>';
+            echo '<td><b>Vendor: </b>'.($row['username']).'</td>';
             if ($row['discounted'] == "yes"){
               echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';
             } else {

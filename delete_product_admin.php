@@ -32,6 +32,9 @@ if ($_SESSION['role'] != 1 || empty($_SESSION['role'])){
 		} else {
 			echo "Cannot Delete Record.";
 		}
+	} else {
+		$message = "Cannot Delete Record.";
+		header('LOCATION: admin_products.php?message='.$message.'');
 	}
 }
 

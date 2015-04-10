@@ -14,9 +14,11 @@
         <li><a href="admin.php">Home</a></li>
         <li><a href="admin_products.php">Products</a></li>
         <li><a href="categories.php">Categories</a></li>
+        <li><a href="view_vendors.php">Vendors</a></li>
+        <li><a href="admin_transactions.php">Transactions</a></li>
+        <li><a href="view_reports.php">Reports</a></li>
         <li><a href="edit_profile_admin.php">Edit Profile</a></li>
         <li><a href="change_password_admin.php">Change Password</a></li>
-        <li><a href="admin_transactions.php">Transactions</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php">Log Out</a></li>

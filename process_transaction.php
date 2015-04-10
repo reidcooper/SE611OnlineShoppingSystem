@@ -35,7 +35,10 @@ include("includes/header.php");
 
             $processed = $_POST['processed'];
             $transaction_id = $_POST['transaction_id'];
-            $date = date("Y-m-d");
+
+            if ($processed != 'Pending') {
+              $date = $_POST['delivery'];
+            }
 
             //Includes database connection file for authorization
             include("includes/db_connection.php");
@@ -63,7 +66,7 @@ include("includes/header.php");
 
               // Update in both tables
               $q = "UPDATE transactions SET processed='$processed' WHERE transaction_id = '$transaction_id'";
-              $s = "UPDATE reports SET status='$processed' WHERE transaction_id = '$transaction_id'";
+              $s = "UPDATE reports SET status='$processed', delivery_date='$date' WHERE transaction_id = '$transaction_id'";
 
                 // execute the query
               $r = mysqli_query($dbc, $q);
@@ -98,6 +101,8 @@ include("includes/header.php");
             // define a query
             $s = "SELECT * FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id WHERE transactions.transaction_id = '$transaction_id'";
 
+            $get_Delivery_date = "SELECT * FROM reports WHERE transaction_id = '$transaction_id'";
+
             // execute the query
             $r = mysqli_query($dbc, $q);
             if (!$r) echo "Sorry, failed connection";
@@ -105,6 +110,10 @@ include("includes/header.php");
             // execute the query
             $t = mysqli_query($dbc, $s);
             if (!$t) echo "Sorry, failed connection";
+
+            // execute the query
+            $retrieveDate = mysqli_query($dbc, $get_Delivery_date);
+            if (!$retrieveDate) echo "Sorry, failed connection";
 
             if (mysqli_num_rows($r) == 1){
               $row = mysqli_fetch_array($r);
@@ -129,6 +138,13 @@ include("includes/header.php");
               echo "Could Not Retrieve Information";
             }
 
+            if (mysqli_num_rows($retrieveDate) == 1){
+              $row3 = mysqli_fetch_array($retrieveDate);
+              $delivery = $row3['delivery_date'];
+            }else {
+              echo "Could Not Retrieve Information";
+            }
+
             ?>
 
             <div id="customer-info">
@@ -147,6 +163,7 @@ include("includes/header.php");
                 <p><b>Quantity: </b><?php echo $quantity ?></p>
                 <p><b>Total Cost: </b><?php echo $total_cost ?></p>
                 <div class="btn-group">
+                  <label for="Inputstatus1">Update Status</label>
                   <?php
 
                   $processed_array = array('Processed', 'On-Delivery', 'Delivered');
@@ -155,8 +172,11 @@ include("includes/header.php");
 
                   ?>
                 </div>
+                <div class="form-group">
+                  <label for="InputDelivery1">Delivery Date</label>
+                  <input type="date" class="form-control" id="InputDelivery1" name="delivery" placeholder="Enter Delivery Date" value="<?php if(isset($_POST['delivery'])){ echo $_POST['delivery'];} else {echo $delivery;} ?>">
+                </div>
               </div>
-              <br>
               <br>
               <input type="hidden" name="transaction_id" value="<?php echo $transaction_id;?>"/>
               <?php
