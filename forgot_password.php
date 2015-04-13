@@ -68,7 +68,7 @@ include("includes/header.php");
                             //Includes database connection file for authorization
               include("includes/db_connection.php");
 
-              $q = "SELECT * FROM shopping_users WHERE uname = '$uname'";
+              $q = "SELECT * FROM shopping_users WHERE username = '$uname'";
 
               $r = mysqli_query($dbc, $q);
 
@@ -82,7 +82,7 @@ include("includes/header.php");
                 $random_password = generateRandomString();
 
                                 // define a query
-                $b = "UPDATE users SET psword=SHA1('$random_password') WHERE uname = '$uname'";
+                $b = "UPDATE shopping_users SET password=SHA1('$random_password') WHERE username = '$uname'";
 
                                 // execute the query
                 $r = mysqli_query($dbc, $b);

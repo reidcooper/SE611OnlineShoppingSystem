@@ -27,13 +27,52 @@ include("includes/header.php");
 
       <?php
 
-  //Includes database connection file for authorization
+      function send_email($products_array, $username){
+
+        include("includes/db_connection.php");
+
+        // define a query
+        $q = "SELECT * FROM shopping_users WHERE username = '$username'";
+
+      // execute the query
+        $r = mysqli_query($dbc, $q);
+        if (!$r) echo "Sorry, failed connection";
+
+        $row = mysqli_fetch_array($r);
+
+        $itemContent = "";
+        $address = "";
+
+        // Each item bought will contain an array which holds [Product ID[0], Quantity of that Product[1], Product Vendor[2], and Total Cost for that Product[3]]
+        foreach ($products_array as $item){
+          $itemContent .= "Product #: $item[0]\n";
+          $itemContent .= "Quantity: $item[1]\n";
+          $itemContent .= "Vendor: $item[2]\n";
+          $itemContent .= "Total Cost: $$item[3]\n";
+          $itemContent .= "\n\n";
+        }
+
+        $address .= $row['firstName'] . " " . $row['lastName'] . "\n";
+        $address .= $row['address']."\n";
+        $address .= $row['city'].", ".$row['state']." ".$row['zipCode']."\n";
+        $address .= $row['phone'];
+
+        $msg = "Hi $username,\n\nThank you for your recent purchase(s)! The products you've purchased are listed below. We shipped to this address (which is on file).\n\n$address\n\nItem(s) Purchased:\n$itemContent We hope to see you soon!\n\n- Online Shopping System";
+
+                    // use wordwrap() if lines are longer than 70 characters
+        $msg = wordwrap($msg,100);
+
+                    // send email
+        mail($row['email'],"Order Confirmation - Online Shopping System",$msg);
+      }
+
+      //Includes database connection file for authorization
       include("includes/db_connection.php");
 
-  // define a query
+      // define a query
       $q = "SELECT * FROM cart INNER JOIN product_master ON cart.product_id = product_master.product_id WHERE cart.username = '$uname'";
 
-  // execute the query
+      // execute the query
       $r = mysqli_query($dbc, $q);
       if (!$r) echo "Sorry, failed connection";
 
@@ -127,7 +166,7 @@ include("includes/header.php");
               //Includes database connection file for authorization
             include("includes/db_connection.php");
 
-            // Each item bought will contain an array which holds [Product ID, Quantity of that Product, Product Vendor, and Total Cost for that Product]
+            // Each item bought will contain an array which holds [Product ID[0], Quantity of that Product[1], Product Vendor[2], and Total Cost for that Product[3]]
             foreach ($products_bought as $item){
               // define a query
               $q = "INSERT INTO transactions (username, product_id, processed, total_cost, trans_date, quantity, vendor) VALUES ('$uname', '$item[0]', '$processed', '$item[3]', '$date', '$item[1]', '$item[2]')";
@@ -135,6 +174,10 @@ include("includes/header.php");
               $r = mysqli_query($dbc, $q);
 
             }
+
+            // Email function send_email($products_array)
+            send_email($products_bought, $uname);
+
 
             $u = "DELETE FROM cart WHERE username='$uname'";
 

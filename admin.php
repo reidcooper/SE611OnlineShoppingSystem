@@ -62,7 +62,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
       // define a query
-        $q = "SELECT *, transactions.username AS buyer FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id";
+        $q = "SELECT *, transactions.username AS buyer FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id ORDER BY trans_date";
 
       // execute the query
         $r = mysqli_query($dbc, $q);

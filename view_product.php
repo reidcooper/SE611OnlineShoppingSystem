@@ -105,11 +105,11 @@ include("includes/header.php");
       <form action="" method="POST">
         <?php
         // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
-        echo '<div class="col-md-6">';
+        echo '<div class="col-md-3">';
         echo '<img src="http://placekitten.com/g/200/300" alt="includes/images/dollar.jpg">';
         echo '</div>';
 
-        echo '<div class="col-md-6">';
+        echo '<div class="col-md-9">';
         echo '<table class="table-no-border table-condensed">';
 
         echo '<tr>';
