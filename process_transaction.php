@@ -101,7 +101,7 @@ include("includes/header.php");
             // define a query
             $s = "SELECT * FROM transactions INNER JOIN product_master ON transactions.product_id = product_master.product_id WHERE transactions.transaction_id = '$transaction_id'";
 
-            $get_Delivery_date = "SELECT * FROM reports WHERE transaction_id = '$transaction_id'";
+            $gdd = "SELECT * FROM reports WHERE transaction_id = '$transaction_id'";
 
             // execute the query
             $r = mysqli_query($dbc, $q);
@@ -112,8 +112,8 @@ include("includes/header.php");
             if (!$t) echo "Sorry, failed connection";
 
             // execute the query
-            $retrieveDate = mysqli_query($dbc, $get_Delivery_date);
-            if (!$retrieveDate) echo "Sorry, failed connection";
+            $rd = mysqli_query($dbc, $gdd);
+            if (!$rd) echo "Sorry, failed connection";
 
             if (mysqli_num_rows($r) == 1){
               $row = mysqli_fetch_array($r);
@@ -138,11 +138,9 @@ include("includes/header.php");
               echo "Could Not Retrieve Information";
             }
 
-            if (mysqli_num_rows($retrieveDate) == 1){
-              $row3 = mysqli_fetch_array($retrieveDate);
+            if (mysqli_num_rows($rd) == 1){
+              $row3 = mysqli_fetch_array($rd);
               $delivery = $row3['delivery_date'];
-            }else {
-              echo "Could Not Retrieve Information";
             }
 
             ?>

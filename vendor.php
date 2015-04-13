@@ -91,7 +91,7 @@ include("includes/header.php");
               echo '<td>'.($row['trans_date']).'</td>';
               echo '<td>'.($row['buyer']).'</td>';
               echo '<td>$'.($row['total_cost']).'</td>';
-              include("includes/process_color_status.php");
+              include("includes/process_color_processed.php");
               // echo '<td>'.outPutItems($unserial).'</td>';
               echo '<td>'.($row['name']).'</td>';
               echo '<td>'.($row['quantity']).'</td>';

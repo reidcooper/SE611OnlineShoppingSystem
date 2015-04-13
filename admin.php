@@ -94,7 +94,7 @@ include("includes/header.php");
               echo '<td>'.($row['vendor']).'</td>';
               echo '<td>$'.($row['total_cost']).'</td>';
               // 'Processed', 'On-Delivery', 'Delivered'
-              include("includes/process_color_status.php");
+              include("includes/process_color_processed.php");
               // echo '<td>'.outPutItems($unserial).'</td>';
               echo '<td>'.($row['name']).'</td>';
               echo '<td>'.($row['quantity']).'</td>';

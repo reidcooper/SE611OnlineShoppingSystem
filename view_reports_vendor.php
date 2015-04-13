@@ -8,7 +8,7 @@ include("includes/header.php");
 <body>
 
   <?php
-  include("includes/admin_navbar.php");
+  include("includes/vendor_navbar.php");
   ?>
 
   <div class="container">
@@ -31,7 +31,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
       // define a query
-        $q = "SELECT * FROM reports WHERE status != 'Delivered'";
+        $q = "SELECT * FROM reports INNER JOIN transactions ON reports.transaction_id = transactions.transaction_id WHERE status != 'Delivered' AND vendor = '$uname'";
 
       // execute the query
         $r = mysqli_query($dbc, $q);
@@ -83,8 +83,8 @@ include("includes/header.php");
       //Includes database connection file for authorization
         include("includes/db_connection.php");
 
-      // define a query
-        $s = "SELECT * FROM reports WHERE status = 'Delivered'";
+        // define a query
+        $s = "SELECT * FROM reports INNER JOIN transactions ON reports.transaction_id = transactions.transaction_id WHERE status = 'Delivered' AND vendor = '$uname'";
 
       // execute the query
         $rt = mysqli_query($dbc, $s);

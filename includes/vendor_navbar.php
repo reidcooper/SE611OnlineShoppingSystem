@@ -13,9 +13,10 @@
       <ul class="nav navbar-nav">
         <li><a href="vendor.php">Home</a></li>
         <li><a href="vendor_products.php">Products</a></li>
+        <li><a href="vendor_transactions.php">Transactions</a></li>
+        <li><a href="view_reports_vendor.php">Reports</a></li>
         <li><a href="edit_profile_vendor.php">Edit Profile</a></li>
         <li><a href="change_password_vendor.php">Change Password</a></li>
-        <li><a href="vendor_transactions.php">Transactions</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php">Log Out</a></li>
