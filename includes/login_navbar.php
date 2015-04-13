@@ -125,10 +125,12 @@
                         $_SESSION['role'] = 2;
                         //logging_in($uname);
                         header('LOCATION: vendor.php');
-                      } else {
+                      } elseif ($row['role'] == 3) {
                         $_SESSION['role'] = 3;
                         //logging_in($uname);
                         header('LOCATION: user.php');
+                      } else {
+                        echo "Your account has been disabled.";
                       }
                     //if student, jump to student.php
                     //otherwise, jump to admin.php
