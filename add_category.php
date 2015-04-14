@@ -59,7 +59,7 @@ include("includes/header.php");
       <form action="" method="POST">
         <div class="form-group">
           <label for="InputName1">Name Of Category</label>
-          <input type="name" class="form-control" id="InputName1" name="name" placeholder="Enter Name" value="<?php if(isset($_POST['name'])) echo $_POST['name']; ?>">
+          <input type="name" class="form-control" id="InputName1" maxlength="255" name="name" placeholder="Enter Name" value="<?php if(isset($_POST['name'])) echo $_POST['name']; ?>">
         </div>
         <button type="submit" class="btn btn-default" name="button" value="Add Category">Submit</button>
       </form>

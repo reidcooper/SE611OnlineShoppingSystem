@@ -126,20 +126,6 @@ include("includes/header.php");
         echo '</div>';
       }
 
-      // print_r($products_bought);
-      // echo '<br>';
-
-      // Serialize array
-      // $serial = serialize($products_bought);
-
-      // foreach ($products_bought as $item){
-      //   echo $item[0];
-      //   echo $item[1];
-      // }
-
-      // $unserial = unserialize($serial);
-      // echo $unserial;
-
       ?>
     </div>
 

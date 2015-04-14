@@ -33,6 +33,10 @@ include("includes/header.php");
             $error[] = "You forgot to enter a quantity.";
           }
 
+          if (!filter_var($quantity, FILTER_VALIDATE_INT)) {
+            $error[] = "Enter a valid quantity.";
+          }
+
             // Check to see if anything in $error.
           if (empty($error)){
 
@@ -62,6 +66,33 @@ include("includes/header.php");
             foreach ($error as $msg) {
               echo $msg;
               echo '<br>';
+            }
+            if(isset($_GET['id'])){
+
+              $product_id = $_GET['id'];
+
+            //Includes database connection file for authorization
+              include("includes/db_connection.php");
+
+              $q = "SELECT * FROM product_master WHERE product_id='$product_id'";
+
+              $r = mysqli_query($dbc, $q);
+
+              if (mysqli_num_rows($r) == 1){
+                $row = mysqli_fetch_array($r);
+                $name = $row['name'];
+                $category = $row['category'];
+                $image = $row['image'];
+                $description = $row['description'];
+                $features = $row['features'];
+                $constraints = $row['constraints_of_products'];
+                $stock = $row['stock'];
+                $cost = $row['cost'];
+                $discount_amount = $row['discounted_amount'];
+                $discount_bool = $row['discounted'];
+              }else {
+                echo "Could Not Retrieve Product Information";
+              }
             }
           }
         }

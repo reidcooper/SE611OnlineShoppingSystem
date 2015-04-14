@@ -72,6 +72,15 @@ include("includes/header.php");
             $error[] = "You forgot to enter cost.";
           }
 
+          if (filter_var($stock, FILTER_VALIDATE_INT) === 0 || !filter_var($stock, FILTER_VALIDATE_INT) === false) {
+          } else {
+            $error[] = "Enter a valid numerical stock.";
+          }
+
+          if (!preg_match("/\b\d{1,3}(?:,?\d{3})*(?:\.\d{2})?\b/", $cost)) {
+            $error[] = "Enter a valid cost.";
+          }
+
             // Check to see if anything in $error.
           if (empty($error)){
 
@@ -85,7 +94,10 @@ include("includes/header.php");
             $r = mysqli_query($dbc, $q);
             if ($r) echo "Product Entered!";
 
+            include("includes/obtain_categories.php");
+
           } else {
+            include("includes/obtain_categories.php");
             foreach ($error as $msg) {
               echo $msg;
               echo '<br>';
@@ -125,27 +137,27 @@ include("includes/header.php");
               </div>
               <div class="form-group">
                 <label for="InputPassword1">Description</label>
-                <input type="description" class="form-control" id="InputDescription1" name="description" placeholder="Description" value="<?php if(isset($_POST['description'])) echo $_POST['description']; ?>">
+                <input type="description" class="form-control" id="InputDescription1" maxlength="255" name="description" placeholder="Description" value="<?php if(isset($_POST['description'])) echo $_POST['description']; ?>">
               </div>
               <div class="form-group">
                 <label for="InputFeatures1">Features</label>
-                <input type="feature" class="form-control" id="InputFeatures1" name="features" placeholder="Features" value="<?php if(isset($_POST['features'])) echo $_POST['features']; ?>">
+                <input type="feature" class="form-control" id="InputFeatures1" maxlength="255" name="features" placeholder="Features" value="<?php if(isset($_POST['features'])) echo $_POST['features']; ?>">
               </div>
 
               <div class="form-group">
                 <label for="InputContraintsOfProducts1">Constraints of Products</label>
-                <input type="contraintOfProducts" class="form-control" id="Input" name="contraintOfProducts" placeholder="Enter Constraints" value="<?php if(isset($_POST['contraintOfProducts'])) echo $_POST['contraintOfProducts']; ?>">
+                <input type="contraintOfProducts" class="form-control" id="Input" maxlength="255" name="contraintOfProducts" placeholder="Enter Constraints" value="<?php if(isset($_POST['contraintOfProducts'])) echo $_POST['contraintOfProducts']; ?>">
               </div>
 
               <div class="form-group">
                 <label for="InputStock1">Stock</label>
-                <input type="stock" class="form-control" id="InputStock1" name="stock" placeholder="Enter Stock" value="<?php if(isset($_POST['stock'])) echo $_POST['stock']; ?>">
+                <input type="stock" class="form-control" id="InputStock1" maxlength="10" name="stock" placeholder="Enter Stock" value="<?php if(isset($_POST['stock'])) echo $_POST['stock']; ?>">
               </div>
               <div class="form-group">
                 <label for="c2">Cost $</label>
                 <div class="input-group">
                   <span class="input-group-addon">$</span>
-                  <input type="number" placeholder="Enter Cost ($0.00)" name="cost" value="<?php if(isset($_POST['cost'])) echo $_POST['cost']; ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
+                  <input type="number" placeholder="Enter Cost ($0.00)" maxlength="15" name="cost" value="<?php if(isset($_POST['cost'])) echo $_POST['cost']; ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
                 </div>
               </div>
 

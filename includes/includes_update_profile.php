@@ -38,55 +38,65 @@
       if (empty($phone)){
         $error[] = "You forgot to enter a phone.";
       }
-      if ($psword != $confirm_password){
-        $error[] = "Your passwords do not match.";
+
+      if (!preg_match("/^\d{5}([\-]?\d{4})?$/i", $zipCode)) {
+        $error[] = "Enter a valid zip code in the US.";
       }
+
+      $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error[] = "Enter a valid email.";
+      }
+
+      if (!preg_match("/^[0-9\_]{7,20}/",$phone)){
+       $error[] = "Enter a valid phone number.";
+     }
 
             // Check to see if anything in $error.
-      if (empty($error)){
+     if (empty($error)){
 
               //Includes database connection file for authorization
-        include("includes/db_connection.php");
+      include("includes/db_connection.php");
 
               // define a query
-        $q = "UPDATE shopping_users SET firstName= '$fname', lastName='$lname', zipCode='$zipCode', address='$address', city='$city', state='$state', email='$email', phone='$phone' WHERE username = '$uname'";
+      $q = "UPDATE shopping_users SET firstName= '$fname', lastName='$lname', zipCode='$zipCode', address='$address', city='$city', state='$state', email='$email', phone='$phone' WHERE username = '$uname'";
 
               // execute the query
-        $r = mysqli_query($dbc, $q);
-        if ($r) echo "Profile Update Complete!";
-        else echo "Sorry, failed connection";
+      $r = mysqli_query($dbc, $q);
+      if ($r) echo "Profile Update Complete!";
+      else echo "Sorry, failed connection";
 
-      } else {
-        foreach ($error as $msg) {
-          echo $msg;
-          echo '<br>';
-        }
+    } else {
+      foreach ($error as $msg) {
+        echo $msg;
+        echo '<br>';
       }
+    }
               // Update Password
-    }
-  } else {
-        //Includes database connection file for authorization
-    include("includes/db_connection.php");
-
-    $q = "SELECT * FROM shopping_users WHERE username = '$uname'";
-
-    $r = mysqli_query($dbc, $q);
-
-    if (mysqli_num_rows($r) == 1){
-      $row = mysqli_fetch_array($r);
-      $fname = $row['firstName'];
-      $lname = $row['lastName'];
-      $address = $row['address'];
-      $city = $row['city'];
-      $state = $row['state'];
-      $email = $row['email'];
-      $phone = $row['phone'];
-      $zipCode = $row['zipCode'];
-    }else {
-      echo "Could Not Retrieve Account Information";
-    }
   }
-  ?>
+} else {
+        //Includes database connection file for authorization
+  include("includes/db_connection.php");
+
+  $q = "SELECT * FROM shopping_users WHERE username = '$uname'";
+
+  $r = mysqli_query($dbc, $q);
+
+  if (mysqli_num_rows($r) == 1){
+    $row = mysqli_fetch_array($r);
+    $fname = $row['firstName'];
+    $lname = $row['lastName'];
+    $address = $row['address'];
+    $city = $row['city'];
+    $state = $row['state'];
+    $email = $row['email'];
+    $phone = $row['phone'];
+    $zipCode = $row['zipCode'];
+  }else {
+    echo "Could Not Retrieve Account Information";
+  }
+}
+?>
 </div>
 
 <div class="update_profile col-md-6 col-md-offset-3">
@@ -94,24 +104,24 @@
   <form action="" method="POST">
     <div class="form-group">
       <label for="InputFirstName1">First Name</label>
-      <input type="firstname" class="form-control" id="InputFirstName1" name="fname" placeholder="Enter First Name" value="<?php echo $fname?>">
+      <input type="firstname" class="form-control" id="InputFirstName1" maxlength="255" name="fname" placeholder="Enter First Name" value="<?php echo $fname?>">
     </div>
     <div class="form-group">
       <label for="InputLastName1">Last Name</label>
-      <input type="lastname" class="form-control" id="InputLastName1" name="lname" placeholder="Enter Last Name" value="<?php echo $lname?>">
+      <input type="lastname" class="form-control" id="InputLastName1" maxlength="255" name="lname" placeholder="Enter Last Name" value="<?php echo $lname?>">
     </div>
     <div class="form-group">
       <label for="InputEmail1">Email</label>
-      <input type="email" class="form-control" id="InputEmail1" name="email" placeholder="Enter Email" value="<?php echo $email?>">
+      <input type="email" class="form-control" id="InputEmail1" maxlength="255" name="email" placeholder="Enter Email" value="<?php echo $email?>">
     </div>
 
     <div class="form-group">
       <label for="InputAddress1">Address</label>
-      <input type="address" class="form-control" id="InputAddress1" name="address" placeholder="Enter Address" value="<?php echo $address?>">
+      <input type="address" class="form-control" id="InputAddress1" maxlength="255" name="address" placeholder="Enter Address" value="<?php echo $address?>">
     </div>
     <div class="form-group">
       <label for="InputCity1">City</label>
-      <input type="city" class="form-control" id="InputCity1" name="city" placeholder="Enter City" value="<?php echo $city?>">
+      <input type="city" class="form-control" id="InputCity1" maxlength="255" name="city" placeholder="Enter City" value="<?php echo $city?>">
     </div>
     <div class="form-group">
             <!-- Single button
@@ -132,11 +142,11 @@
           </div>
           <div class="form-group">
             <label for="InputZipcode1">Zip-Code</label>
-            <input type="zipcode" class="form-control" id="InputZipcode1" name="zip-code" placeholder="Enter Zipcode" value="<?php echo $zipCode?>">
+            <input type="zipcode" class="form-control" id="InputZipcode1" maxlength="10" name="zip-code" placeholder="Enter Zipcode" value="<?php echo $zipCode?>">
           </div>
           <div class="form-group">
             <label for="InputPhone1">Phone Number</label>
-            <input type="phone" class="form-control" id="InputPhone1" name="phone" placeholder="Enter Phone Number" value="<?php echo $phone?>">
+            <input type="phone" class="form-control" id="InputPhone1" maxlength="15" name="phone" placeholder="Enter Phone Number" value="<?php echo $phone?>">
           </div>
           <button type="submit" class="btn btn-default" name="Update" value="Update">Update Profile</button>
         </form>

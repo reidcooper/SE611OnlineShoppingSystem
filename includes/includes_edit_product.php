@@ -68,6 +68,15 @@
           $error[] = "Cannot have discount greater than price.";
         }
 
+        if (filter_var($stock, FILTER_VALIDATE_INT) === 0 || !filter_var($stock, FILTER_VALIDATE_INT) === false) {
+        } else {
+          $error[] = "Enter a valid numerical stock.";
+        }
+
+        if (!preg_match("/\b\d{1,3}(?:,?\d{3})*(?:\.\d{2})?\b/", $cost)) {
+          $error[] = "Enter a valid cost.";
+        }
+
             // Check to see if anything in $error.
         if (empty($error)){
 
@@ -80,7 +89,10 @@
           $r = mysqli_query($dbc, $q);
           if ($r) echo "Product Updated!";
 
+          include("includes/obtain_categories.php");
+
         } else {
+          include("includes/obtain_categories.php");
           foreach ($error as $msg) {
             echo $msg;
             echo '<br>';

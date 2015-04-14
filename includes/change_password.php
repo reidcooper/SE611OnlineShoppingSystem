@@ -24,14 +24,14 @@
           $error[] = "Your passwords do not match.";
         }
 
-            // Password Requirements
-            // if( strlen($psword) < 8) {
-            //  $error[] = "Password too short!";
-            // }
+        // Password Requirements
+        if( strlen($psword) < 8) {
+         $error[] = "Password too short!";
+        }
 
-            // if( !preg_match("#[0-9]+#", $psword) ) {
-            //  $error[] = "Password must include at least one number! ";
-            // }
+        if( !preg_match("#[0-9]+#", $psword) ) {
+         $error[] = "Password must include at least one number! ";
+        }
 
               // Check to see if anything in $error.
         if (empty($error)){

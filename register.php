@@ -103,13 +103,26 @@ include("includes/header.php");
             }
 
             // Password Requirements
-            // if( strlen($psword) < 8) {
-            //  $error[] = "Password too short!";
-            // }
+            if( strlen($psword) < 8) {
+             $error[] = "Password too short!";
+            }
 
-            // if( !preg_match("#[0-9]+#", $psword) ) {
-            //  $error[] = "Password must include at least one number! ";
-            // }
+            if( !preg_match("#[0-9]+#", $psword) ) {
+             $error[] = "Password must include at least one number! ";
+            }
+
+            if (!preg_match("/^\d{5}([\-]?\d{4})?$/i", $zip_code)) {
+              $error[] = "Enter a valid zip code in the US.";
+            }
+
+            $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+              $error[] = "Enter a valid email.";
+            }
+
+            if (!preg_match("/^[0-9\_]{7,20}/",$phone)){
+               $error[] = "Enter a valid phone number.";
+            }
 
             // Check to see if anything in $error.
             if (empty($error)){
@@ -146,37 +159,37 @@ include("includes/header.php");
         <form action="" method="POST">
           <div class="form-group">
             <label for="InputUsername1">Username</label>
-            <input type="username" class="form-control" id="InputUsername1" name="uname" placeholder="Enter Username" value="<?php if(isset($_POST['uname'])) echo $_POST['uname']; ?>">
+            <input type="username" class="form-control" id="InputUsername1" maxlength="255" name="uname" placeholder="Enter Username" value="<?php if(isset($_POST['uname'])) echo $_POST['uname']; ?>">
           </div>
           <div class="form-group">
             <label for="InputFirstName1">First Name</label>
-            <input type="firstname" class="form-control" id="InputFirstName1" name="fname" placeholder="Enter First Name" value="<?php if(isset($_POST['fname'])) echo $_POST['fname']; ?>">
+            <input type="firstname" class="form-control" id="InputFirstName1" maxlength="255" name="fname" placeholder="Enter First Name" value="<?php if(isset($_POST['fname'])) echo $_POST['fname']; ?>">
           </div>
           <div class="form-group">
             <label for="InputLastName1">Last Name</label>
-            <input type="lastname" class="form-control" id="InputLastName1" name="lname" placeholder="Enter Last Name" value="<?php if(isset($_POST['lname'])) echo $_POST['lname']; ?>">
+            <input type="lastname" class="form-control" id="InputLastName1" maxlength="255" name="lname" placeholder="Enter Last Name" value="<?php if(isset($_POST['lname'])) echo $_POST['lname']; ?>">
           </div>
           <div class="form-group">
             <label for="InputPassword1">Password</label>
-            <input type="password" class="form-control" id="InputPassword1" name="psword" placeholder="Password">
+            <input type="password" class="form-control" id="InputPassword1" maxlength="255" name="psword" placeholder="Password">
           </div>
           <div class="form-group">
             <label for="InputConfirmPassword1">Confirm Password</label>
-            <input type="password" class="form-control" id="InputConfirmPassword1" name="confirm_password" placeholder="Confirm Password">
+            <input type="password" class="form-control" id="InputConfirmPassword1" maxlength="255" name="confirm_password" placeholder="Confirm Password">
           </div>
 
           <div class="form-group">
             <label for="InputEmail1">Email</label>
-            <input type="email" class="form-control" id="InputEmail1" name="email" placeholder="Enter Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
+            <input type="email" class="form-control" id="InputEmail1" maxlength="255" name="email" placeholder="Enter Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
           </div>
 
           <div class="form-group">
             <label for="InputAddress1">Address</label>
-            <input type="address" class="form-control" id="InputAddress1" name="address" placeholder="Enter Address" value="<?php if(isset($_POST['address'])) echo $_POST['address']; ?>">
+            <input type="address" class="form-control" id="InputAddress1" maxlength="255" name="address" placeholder="Enter Address" value="<?php if(isset($_POST['address'])) echo $_POST['address']; ?>">
           </div>
           <div class="form-group">
             <label for="InputCity1">City</label>
-            <input type="city" class="form-control" id="InputCity1" name="city" placeholder="Enter City" value="<?php if(isset($_POST['city'])) echo $_POST['city']; ?>">
+            <input type="city" class="form-control" id="InputCity1" maxlength="255" name="city" placeholder="Enter City" value="<?php if(isset($_POST['city'])) echo $_POST['city']; ?>">
           </div>
           <div class="form-group">
                 <!-- Single button
@@ -197,12 +210,12 @@ include("includes/header.php");
               </div>
               <div class="form-group">
                 <label for="InputZipcode1">Zip-Code</label>
-                <input type="zipcode" class="form-control" id="InputZipcode1" name="zip-code" placeholder="Enter Zipcode" value="<?php if(isset($_POST['zip-code'])) echo $_POST['zip-code']; ?>">
+                <input type="zipcode" class="form-control" id="InputZipcode1" maxlength="10" name="zip-code" placeholder="Enter Zipcode" value="<?php if(isset($_POST['zip-code'])) echo $_POST['zip-code']; ?>">
               </div>
 
               <div class="form-group">
                 <label for="InputPhone1">Phone Number</label>
-                <input type="phone" class="form-control" id="InputPhone1" name="phone" placeholder="Enter Phone Number" value="<?php if(isset($_POST['phone'])) echo $_POST['phone']; ?>">
+                <input type="phone" class="form-control" id="InputPhone1" maxlength="15" name="phone" placeholder="Enter Phone Number" value="<?php if(isset($_POST['phone'])) echo $_POST['phone']; ?>">
               </div>
 
               <div class="form-group">
