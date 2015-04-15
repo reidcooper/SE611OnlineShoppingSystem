@@ -8,7 +8,7 @@ include("includes/header.php");
 <body>
 
   <?php
-  include("includes/user_navbar.php");
+  include("includes/nonuser_navbar.php");
   ?>
 
   <div class="container">
@@ -36,7 +36,7 @@ include("includes/header.php");
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
           if($_POST['button'] == "search") {
             $search_term = $_POST['search'];
-            header('LOCATION: search_products.php?search='.$search_term.'');
+            header('LOCATION: non_member_search_products.php?search='.$search_term.'');
           }
         }
         ?>
@@ -84,7 +84,7 @@ include("includes/header.php");
             }
             echo '<td><b>Description: </b>'.($row['description']).'</td>';
             echo '<td><b>Category: </b>'.($row['category']).'</td>';
-            echo '<td><a href="view_product.php?id='.$row['product_id'].'"><b>View</b></a></td>';
+            echo '<td><a href="non_member_view_product.php?id='.$row['product_id'].'"><b>View</b></a></td>';
             echo '</tr>';
 
           }

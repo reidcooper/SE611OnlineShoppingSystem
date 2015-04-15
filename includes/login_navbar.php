@@ -10,6 +10,9 @@
       <a class="navbar-brand" href="index.php">Online Shopping System</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="nonmember_products.php">View Products</a></li>
+      </ul>
       <form class="navbar-form navbar-right" method="POST" action="">
         <div class="form-group">
           <input type="text" placeholder="Username" class="form-control" name="uname" value="<?php if(isset($_POST['uname'])) echo $_POST['uname']; ?>">

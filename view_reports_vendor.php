@@ -126,6 +126,118 @@ include("includes/header.php");
         ?>
       </div>
 
+      <h4>Sales Report:</h4>
+
+      <div class="col-md-12" align="center" style="text-align: center">
+        <?php
+
+      //Includes database connection file for authorization
+        include("includes/db_connection.php");
+
+        // define a query
+        $sales_report = "SELECT * FROM product_master WHERE discounted = 'yes' AND username = '$uname'";
+
+      // execute the query
+        $execute_sales_report = mysqli_query($dbc, $sales_report);
+        if (!$execute_sales_report) echo "Sorry, failed connection";
+
+        if(isset($execute_sales_report)){
+          if (mysqli_num_rows($execute_sales_report)){
+
+            echo '<table class="table table-striped table-bordered">';
+            echo '<tr>';
+            echo '<td><b>Name: </b></td>';
+            echo '<td><b>Price: </b></td>';
+            echo '<td><b>Stock: </b></td>';
+            echo '</tr>';
+            while ($row = mysqli_fetch_array($execute_sales_report)) {
+
+              echo '<tr>';
+              echo '<td>'.($row['name']).'</td>';
+              if ($row['discounted'] == "yes"){
+                echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';
+              } else {
+                echo '<td><b>Price: </b>$'.($row['cost']).'</td>';
+              }
+              if ($row['stock'] <= 0){
+                echo '<td><b><font color="red">Out of Stock</font></b></td>';
+              } else {
+                echo '<td><b>Stock: </b>'.($row['stock']).'</td>';
+              }
+              echo '</tr>';
+
+            }
+            echo '</table>';
+          }  else {
+            echo '<div style ="color: red">';
+            echo 'No Sales.';
+            echo '</div>';
+          }
+        }else {
+          echo '<div style ="color: red">';
+          echo 'No Sales.';
+          echo '</div>';
+        }
+
+        ?>
+      </div>
+
+      <h4>Stock Report:</h4>
+
+      <div class="col-md-12" align="center" style="text-align: center">
+        <?php
+
+      //Includes database connection file for authorization
+        include("includes/db_connection.php");
+
+        // define a query
+        $sales_report = "SELECT * FROM product_master WHERE stock <= '0'";
+
+      // execute the query
+        $execute_sales_report = mysqli_query($dbc, $sales_report);
+        if (!$execute_sales_report) echo "Sorry, failed connection";
+
+        if(isset($execute_sales_report)){
+          if (mysqli_num_rows($execute_sales_report)){
+
+            echo '<table class="table table-striped table-bordered">';
+            echo '<tr>';
+            echo '<td><b>Name: </b></td>';
+            echo '<td><b>Price: </b></td>';
+            echo '<td><b>Stock: </b></td>';
+            echo '</tr>';
+            while ($row = mysqli_fetch_array($execute_sales_report)) {
+
+              echo '<tr>';
+              echo '<td>'.($row['name']).'</td>';
+              if ($row['discounted'] == "yes"){
+                echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';
+              } else {
+                echo '<td><b>Price: </b>$'.($row['cost']).'</td>';
+              }
+              if ($row['stock'] <= 0){
+                echo '<td><b><font color="red">Out of Stock</font></b></td>';
+              } else {
+                echo '<td><b>Stock: </b>'.($row['stock']).'</td>';
+              }
+              echo '</tr>';
+
+            }
+            echo '</table>';
+          }  else {
+            echo '<div style ="color: red">';
+            echo 'No Out of Stock Items.';
+            echo '</div>';
+          }
+        }else {
+          echo '<div style ="color: red">';
+          echo 'No Out of Stock Items.';
+          echo '</div>';
+        }
+
+        ?>
+      </div>
+
     </div>
     <br>
     <br>

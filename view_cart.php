@@ -45,7 +45,16 @@ include("includes/header.php");
 
         // Each item bought will contain an array which holds [Product ID[0], Quantity of that Product[1], Product Vendor[2], and Total Cost for that Product[3]]
         foreach ($products_array as $item){
-          $itemContent .= "Product #: $item[0]\n";
+                  // define a query
+          $qq = "SELECT * FROM product_master WHERE product_id = '$item[0]'";
+
+          // execute the query
+          $rr = mysqli_query($dbc, $qq);
+          if (!$rr) echo "Sorry, failed connection";
+
+          $row2 = mysqli_fetch_array($rr);
+
+          $itemContent .= "Product #: ".$row2['name']."\n";
           $itemContent .= "Quantity: $item[1]\n";
           $itemContent .= "Vendor: $item[2]\n";
           $itemContent .= "Total Cost: $$item[3]\n";
