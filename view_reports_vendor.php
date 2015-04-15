@@ -146,6 +146,7 @@ include("includes/header.php");
 
             echo '<table class="table table-striped table-bordered">';
             echo '<tr>';
+            echo '<td><b>Product #: </b></td>';
             echo '<td><b>Name: </b></td>';
             echo '<td><b>Price: </b></td>';
             echo '<td><b>Stock: </b></td>';
@@ -153,6 +154,7 @@ include("includes/header.php");
             while ($row = mysqli_fetch_array($execute_sales_report)) {
 
               echo '<tr>';
+              echo '<td>'.($row['product_id']).'</td>';
               echo '<td>'.($row['name']).'</td>';
               if ($row['discounted'] == "yes"){
                 echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';
@@ -191,7 +193,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
         // define a query
-        $sales_report = "SELECT * FROM product_master WHERE stock <= '0'";
+        $sales_report = "SELECT * FROM product_master WHERE stock <= '0' AND username = '$uname'";
 
       // execute the query
         $execute_sales_report = mysqli_query($dbc, $sales_report);
@@ -202,6 +204,7 @@ include("includes/header.php");
 
             echo '<table class="table table-striped table-bordered">';
             echo '<tr>';
+            echo '<td><b>Product #: </b></td>';
             echo '<td><b>Name: </b></td>';
             echo '<td><b>Price: </b></td>';
             echo '<td><b>Stock: </b></td>';
@@ -209,6 +212,7 @@ include("includes/header.php");
             while ($row = mysqli_fetch_array($execute_sales_report)) {
 
               echo '<tr>';
+              echo '<td>'.($row['product_id']).'</td>';
               echo '<td>'.($row['name']).'</td>';
               if ($row['discounted'] == "yes"){
                 echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';

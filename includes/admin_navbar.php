@@ -7,13 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="vendor.php">Online Shopping System</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li><a href="admin.php">Home</a></li>
         <li><a href="admin_products.php">Products</a></li>
         <li><a href="categories.php">Categories</a></li>
+        <li><a href="view_customers.php">Customers</a></li>
         <li><a href="view_vendors.php">Vendors</a></li>
         <li><a href="admin_transactions.php">Transactions</a></li>
         <li><a href="view_reports.php">Reports</a></li>

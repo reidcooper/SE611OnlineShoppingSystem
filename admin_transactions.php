@@ -75,6 +75,7 @@ include("includes/header.php");
 
             echo '<table class="table table-striped table-bordered">';
             echo '<tr>';
+            echo '<td><b>Transaction #: </b></td>';
             echo '<td><b>Transaction Date: </b></td>';
             echo '<td><b>Buyer: </b></td>';
             echo '<td><b>Vendor: </b></td>';
@@ -89,6 +90,7 @@ include("includes/header.php");
               // $unserial = unserialize($row['items_bought']);
 
               echo '<tr>';
+              echo '<td>'.($row['transaction_id']).'</td>';
               echo '<td>'.($row['trans_date']).'</td>';
               echo '<td>'.($row['buyer']).'</td>';
               echo '<td>'.($row['vendor']).'</td>';

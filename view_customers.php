@@ -15,7 +15,7 @@ include("includes/header.php");
 
     <div class="user-starter-template">
       <h1>Online Registration System</h1>
-      <p class="lead">Welcome! Manage the Vendors.</p>
+      <p class="lead">Welcome! Manage the Customers.</p>
       <?php
       if(isset($_GET['message'])){
         echo '<div style ="color: red">'.$_GET['message'].'</div>';
@@ -29,7 +29,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
       // define a query
-        $q = "SELECT * FROM shopping_users WHERE role = '8' OR role = '2'";
+        $q = "SELECT * FROM shopping_users WHERE role = '9' OR role ='3'";
 
       // execute the query
         $r = mysqli_query($dbc, $q);
@@ -55,7 +55,7 @@ include("includes/header.php");
               // $unserial = unserialize($row['items_bought']);
 
               echo '<tr>';
-              if ($row['role'] == 2) {
+              if ($row['role'] == 3) {
                 echo '<td><font color="green">'.($row['username']).'</font></td>';
               } else {
                 echo '<td><font color="red">'.($row['username']).'</font></td>';
@@ -65,10 +65,10 @@ include("includes/header.php");
               echo '<td>'.($row['email']).'</td>';
               echo '<td>'.($row['last_login']).'</td>';
               echo '<td><a href="view_customer.php?id='.$row['username'].'"><b>View?</b></a></td>';
-              if ($row['role'] == 2){
-                echo '<td><a href="disable_vendor.php?id='.$row['username'].'"><b>Disable?</b></a></td>';
+              if ($row['role'] == 3){
+                echo '<td><a href="disable_user.php?id='.$row['username'].'"><b>Disable?</b></a></td>';
               } else {
-                echo '<td><a href="enable_vendor.php?id='.$row['username'].'"><b>Enable?</b></a></td>';
+                echo '<td><a href="enable_customers.php?id='.$row['username'].'"><b>Enable?</b></a></td>';
               }
               echo '</tr>';
 
