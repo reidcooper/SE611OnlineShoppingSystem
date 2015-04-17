@@ -22,6 +22,25 @@ include("includes/header.php");
       }
       ?>
     </div>
+    <div class="search col-md-4 col-md-offset-4" align="center">
+      <form action="" method="POST">
+        <div class="form-group">
+          <label for="InputSearch1"><h4>Search</h4></label>
+          <input type="search" class="form-control" id="InputSearch1" maxlength="10" name="search" placeholder="Search" value="">
+        </div>
+        <button type="submit" class="btn btn-default btn-primary" name="button" value="search">Search</button>
+
+        <?php
+        // when the form in this page is submitted
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          if($_POST['button'] == "search") {
+            $search_term = $_POST['search'];
+            header('LOCATION: search_products_admin.php?search='.$search_term.'');
+          }
+        }
+        ?>
+      </form>
+    </div>
     <div class="product-listing">
 
       <?php
@@ -63,6 +82,7 @@ include("includes/header.php");
               echo '<td><b>Stock: </b>'.($row['stock']).'</td>';
             }
             echo '<td><b>Description: </b>'.($row['description']).'</td>';
+            echo '<td><b>Category: </b>'.($row['category']).'</td>';
             echo '<td><a href="edit_product_admin.php?id='.$row['product_id'].'"><b>Edit</b></a></td>';
             echo '<td><a href="delete_product_admin.php?id='.$row['product_id'].'"><b>Delete</b></a></td>';
             echo '</tr>';
