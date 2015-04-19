@@ -51,7 +51,7 @@ include("includes/header.php");
       include("includes/db_connection.php");
 
   // define a query
-      $q = "SELECT * FROM product_master WHERE deleted != 'yes'";
+      $q = "SELECT * FROM product_master WHERE deleted = 'no'";
 
   // execute the query
       $r = mysqli_query($dbc, $q);

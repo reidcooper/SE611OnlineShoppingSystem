@@ -44,7 +44,7 @@ include("includes/header.php");
           $contraintOfProducts = $_POST['contraintOfProducts'];
           $stock = $_POST['stock'];
           $cost = $_POST['cost'];
-          $deleted = 'no';
+          $deleted = 'apr';
           $discounted = 'no';
 
             // Define an array of error

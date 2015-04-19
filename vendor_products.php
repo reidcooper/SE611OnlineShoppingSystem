@@ -71,7 +71,11 @@ include("includes/header.php");
           while ($row = mysqli_fetch_array($r)) {
 
             echo '<tr>';
-            echo '<td><b>'.($row['name']).'</b></td>';
+            if ($row['deleted'] == 'no') {
+              echo '<td><b>'.($row['name']).'</b></td>';
+            } else {
+              echo '<td><b><font color="red">'.($row['name']).' - Needs Approval</font></b></td>';
+            }
             echo '</tr>';
 
             echo '<tr>';

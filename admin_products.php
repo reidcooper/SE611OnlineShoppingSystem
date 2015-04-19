@@ -63,7 +63,11 @@ include("includes/header.php");
           while ($row = mysqli_fetch_array($r)) {
 
             echo '<tr>';
-            echo '<td><b>'.($row['name']).'</b></td>';
+            if ($row['deleted'] == 'no') {
+              echo '<td><b>'.($row['name']).'</b></td>';
+            } else {
+              echo '<td><b><font color="red">'.($row['name']).' - Needs Approval</font></b></td>';
+            }
             echo '</tr>';
 
             echo '<tr>';
@@ -85,6 +89,9 @@ include("includes/header.php");
             echo '<td><b>Category: </b>'.($row['category']).'</td>';
             echo '<td><a href="edit_product_admin.php?id='.$row['product_id'].'"><b>Edit</b></a></td>';
             echo '<td><a href="delete_product_admin.php?id='.$row['product_id'].'"><b>Delete</b></a></td>';
+            if ($row['deleted'] == 'apr'){
+              echo '<td><a id="enable-link" href="enable_product_admin.php?id='.$row['product_id'].'"><b>Enable?</b></a></td>';
+            }
             echo '</tr>';
 
           }

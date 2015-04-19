@@ -58,7 +58,7 @@ include("includes/header.php");
             }
 
             if ($role == 'Vendor'){
-              $role = 2;
+              $role = 8;
             }
 
             if ($role == 'User'){
@@ -124,6 +124,8 @@ include("includes/header.php");
                $error[] = "Enter a valid phone number.";
             }
 
+            $uname = strtolower($uname);
+
             // Check to see if anything in $error.
             if (empty($error)){
 
@@ -158,7 +160,7 @@ include("includes/header.php");
       <div class="col-md-6 col-md-offset-3">
         <form action="" method="POST">
           <div class="form-group">
-            <label for="InputUsername1">Username</label>
+            <label for="InputUsername1">Username (It will be saved lower case)</label>
             <input type="username" class="form-control" id="InputUsername1" maxlength="255" name="uname" placeholder="Enter Username" value="<?php if(isset($_POST['uname'])) echo $_POST['uname']; ?>">
           </div>
           <div class="form-group">

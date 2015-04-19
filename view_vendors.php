@@ -68,7 +68,7 @@ include("includes/header.php");
               if ($row['role'] == 2){
                 echo '<td><a href="disable_vendor.php?id='.$row['username'].'"><b>Disable?</b></a></td>';
               } else {
-                echo '<td><a href="enable_vendor.php?id='.$row['username'].'"><b>Enable?</b></a></td>';
+                echo '<td><a id="enable-link" href="enable_vendor.php?id='.$row['username'].'"><b>Enable?</b></a></td>';
               }
               echo '</tr>';
 
