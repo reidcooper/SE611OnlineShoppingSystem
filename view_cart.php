@@ -114,7 +114,7 @@ include("includes/header.php");
 
             echo '<tr>';
             // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
-            echo '<td><img src="http://placekitten.com/g/200/138" alt="includes/images/dollar.jpg"></td>';
+            echo '<td><img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg"></td>';
             echo '<td>'.($row['name']).'</td>';
             echo '<td>$'.($discount_cost).'</td>';
             echo '<td>'.($row['quantity']).'</td>';

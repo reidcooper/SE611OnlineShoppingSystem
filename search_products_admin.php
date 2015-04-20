@@ -51,7 +51,7 @@ include("includes/header.php");
 
               echo '<tr>';
             // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
-              echo '<td><img src="http://placekitten.com/g/408/287" alt="includes/images/dollar.jpg"></td>';
+              echo '<td><img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg"></td>';
               echo '<td><b>Name: </b>'.($row['name']).'</td>';
               echo '<td><b>Vendor: </b>'.($row['username']).'</td>';
               if ($row['discounted'] == "yes"){

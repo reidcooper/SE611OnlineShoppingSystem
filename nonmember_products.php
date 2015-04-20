@@ -23,7 +23,7 @@ include("includes/header.php");
       ?>
     </div>
 
-    <div class="search col-md-4 col-md-offset-4" align="center">
+    <div class="search col-md-2" align="center">
       <form action="" method="POST">
         <div class="form-group">
           <label for="InputSearch1"><h4>Search</h4></label>
@@ -43,7 +43,7 @@ include("includes/header.php");
       </form>
     </div>
 
-    <div class="product-listing col-md-12">
+    <div class="product-listing col-md-10">
 
       <?php
 
@@ -70,7 +70,7 @@ include("includes/header.php");
 
             echo '<tr>';
             // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
-            echo '<td><img src="http://placekitten.com/g/408/287" alt="includes/images/dollar.jpg"></td>';
+            echo '<td><img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg"></td>';
             //echo '<td><b>Item: </b>'.($row['name']).'</td>';
             if ($row['discounted'] == "yes"){
               echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';

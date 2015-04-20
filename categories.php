@@ -22,13 +22,14 @@ include("includes/header.php");
       }
       ?>
 
-      <div class="vendor-product-options btn-group btn-group-justified" role="group">
-        <div class="btn-group" role="group">
-          <p><a class="btn btn-success" href="add_category.php" role="button" value="category">Add Category &raquo;</a></p>
-        </div>
-      </div>
 
-      <div class="col-md-12" align="center" style="text-align: center">
+      <div class="col-md-4 col-md-offset-4" align="center" style="text-align: center">
+
+        <div class="vendor-product-options btn-group btn-group-justified" role="group">
+          <div class="btn-group" role="group">
+            <p><a class="btn btn-success" href="add_category.php" role="button" value="category">Add Category &raquo;</a></p>
+          </div>
+        </div>
         <?php
 
       //Includes database connection file for authorization

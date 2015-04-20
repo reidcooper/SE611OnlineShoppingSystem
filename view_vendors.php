@@ -96,7 +96,7 @@ include("includes/header.php");
     <br>
     <br>
     <div class="col-md-6 col-md-offset-3" style="text-align: center">
-      <center><p class="small">Disabling Vendors will prevent logging in.</p></center>
+      <center><p class="small">Approve of Vendors - Disabling Vendors will prevent logging in</p></center>
       <center><small> Certain items may not exist anymore, therefore only numbers will show up for the deleted item.</small></center>
     </div>
   </div><!-- /.container -->
