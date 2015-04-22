@@ -23,9 +23,42 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if($_POST['button'] == "Update") {
 
+        // Define an array of error
+        $error = array();
+
+        $allowed = array('image/png', 'image/jpeg', 'image/gif', 'image/jpg');
+        if(is_uploaded_file($_FILES['image']['tmp_name']))
+        {
+          if ($_FILES["image"]["error"] > 0)
+          {
+            echo "Return Code: " . $_FILES["image"]["error"] . "<br>";
+          }
+          else
+          {
+            echo "Upload: " . $_FILES["image"]["name"] . "<br>";
+            echo "Type: " . $_FILES["image"]["type"] . "<br>";
+            echo "Size: " . ($_FILES["image"]["size"] / 1024) . " kB<br>";
+            if (file_exists("includes/images/" . $_FILES["image"]["name"]))
+            {
+              $image = "includes/images/" . $_FILES["image"]["name"];
+            }
+            else
+            {
+              if(in_array($_FILES["image"]["type"], $allowed)){
+                $image = "includes/images/" . $_FILES["image"]["name"];
+                move_uploaded_file($_FILES["image"]["tmp_name"], "includes/images/" . $_FILES["image"]["name"]);
+                //change upload to whatever path
+                echo "Upload Successful!<br>";
+              }
+            }
+          }
+        }
+        else {
+          $image = $_POST['hidden-image'];
+        }
+
         $name = $_POST['name'];
         $category = $_POST['category'];
-        $image = $_POST['image'];
         $description = $_POST['description'];
         $features = $_POST['features'];
         $constraints = $_POST['constraints'];
@@ -39,9 +72,6 @@
         } else {
           $discount_bool = "no";
         }
-
-            // Define an array of error
-        $error = array();
 
         if (empty($name)){
           $error[] = "You forgot to enter name.";
@@ -140,7 +170,7 @@
 
   <div class="add-product col-md-6 col-md-offset-3">
     <h1>Add a Product</h1>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype = "multipart/form-data">
       <div class="form-group">
         <label for="InputName1">Name</label>
         <input type="name" class="form-control" id="InputName1" name="name" placeholder="Enter Name" value="<?php if(isset($_POST['name'])){ echo $_POST['name'];} else { echo $name;}?>">
@@ -159,7 +189,8 @@
               </div>
               <div class="form-group">
                 <label for="InputLastName1">Image</label>
-                <input id="input-1" type="file" class="file form-control" name="image" value="<?php if(isset($_POST['image'])){ echo $_POST['image'];} else { echo $image;}?>">
+                <input id="image" type="file" class="file form-control" name="image" value="">
+                <input type="hidden" name="hidden-image" value="<?php echo $image;?>"/>
               </div>
               <div class="form-group">
                 <label for="InputPassword1">Description</label>

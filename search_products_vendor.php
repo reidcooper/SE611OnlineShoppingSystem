@@ -34,7 +34,7 @@ include("includes/header.php");
         include("includes/db_connection.php");
 
         // define a query
-        $q = "SELECT name, category, stock, cost, username, description, discounted, discounted_amount, product_id FROM product_master WHERE deleted = 'no' AND (name LIKE '%" . $search_term . "%' OR category LIKE '%" . $search_term . "%' OR stock LIKE '%" . $search_term . "%' OR cost LIKE '%" . $search_term . "%' OR username LIKE '%" . $search_term . "%')";
+        $q = "SELECT name, category, stock, cost, username, description, discounted, discounted_amount, product_id, image FROM product_master WHERE (deleted = 'no' OR deleted = 'apr') AND (name LIKE '%" . $search_term . "%' OR category LIKE '%" . $search_term . "%' OR stock LIKE '%" . $search_term . "%' OR cost LIKE '%" . $search_term . "%' OR username LIKE '%" . $search_term . "%')";
 
         // execute the query
         $r = mysqli_query($dbc, $q);
@@ -50,8 +50,8 @@ include("includes/header.php");
              echo '</tr>';
 
              echo '<tr>';
-            // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
-             echo '<td><img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg"></td>';
+             echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
+             // echo '<td><img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg"></td>';
              echo '<td><b>Name: </b>'.($row['name']).'</td>';
              if ($row['discounted'] == "yes"){
               echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';

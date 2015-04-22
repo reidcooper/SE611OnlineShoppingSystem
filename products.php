@@ -69,8 +69,8 @@ include("includes/header.php");
             echo '</tr>';
 
             echo '<tr>';
-            // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
-            echo '<td><img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg"></td>';
+            echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
+            // echo '<td><img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg"></td>';
             //echo '<td><b>Item: </b>'.($row['name']).'</td>';
             if ($row['discounted'] == "yes"){
               echo '<td><b><font color="red">Discounted Price: $'.($row['cost'] - $row['discounted_amount']).'</font></b></td>';

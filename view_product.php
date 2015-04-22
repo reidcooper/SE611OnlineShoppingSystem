@@ -135,9 +135,10 @@ include("includes/header.php");
     <div class="add-product col-md-12">
       <form action="" method="POST">
         <?php
-        // echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
+
         echo '<div class="col-md-3">';
-        echo '<img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg">';
+        echo '<td><img src="'.($row['image']).'" alt="'.($row['image']).'"></td>';
+        // echo '<img src="http://lorempixel.com/200/200/food/" alt="includes/images/dollar.jpg">';
         echo '</div>';
 
         echo '<div class="col-md-9">';
