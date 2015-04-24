@@ -61,7 +61,7 @@ include("includes/header.php");
       <?php
       if(isset($r)){
         if (mysqli_num_rows($r)){
-          echo '<table class="table-no-border">';
+          echo '<table class="table table-striped table-bordered">';
           while ($row = mysqli_fetch_array($r)) {
 
             echo '<tr>';

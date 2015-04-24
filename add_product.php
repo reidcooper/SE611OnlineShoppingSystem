@@ -37,25 +37,20 @@ include("includes/header.php");
 
           // Define an array of error
           $error = array();
+          $image = $_POST['hidden-image'];
 
           $allowed = array('image/png', 'image/jpeg', 'image/gif', 'image/jpg');
-          if(is_uploaded_file($_FILES['image']['tmp_name']))
-          {
-            if ($_FILES["image"]["error"] > 0)
-            {
+          if(is_uploaded_file($_FILES['image']['tmp_name'])){
+            if ($_FILES["image"]["error"] > 0){
               echo "Return Code: " . $_FILES["image"]["error"] . "<br>";
-            }
-            else
-            {
+            } else{
               echo "Upload: " . $_FILES["image"]["name"] . "<br>";
               echo "Type: " . $_FILES["image"]["type"] . "<br>";
               echo "Size: " . ($_FILES["image"]["size"] / 1024) . " kB<br>";
-              if (file_exists("includes/images/" . $_FILES["image"]["name"]))
-              {
+              if (file_exists("/includes/images/" . $_FILES["image"]["name"])){
+                echo "Using Stored Photo";
                 $image = "includes/images/" . $_FILES["image"]["name"];
-              }
-              else
-              {
+              }else{
                 if(in_array($_FILES["image"]["type"], $allowed)){
                   $image = "includes/images/" . $_FILES["image"]["name"];
                   move_uploaded_file($_FILES["image"]["tmp_name"], "includes/images/" . $_FILES["image"]["name"]);
@@ -64,9 +59,6 @@ include("includes/header.php");
                 }
               }
             }
-          }
-          else {
-            $image = $_POST['hidden-image'];
           }
 
           $name = $_POST['name'];
@@ -163,7 +155,7 @@ include("includes/header.php");
               <div class="form-group">
                 <label for="InputLastName1">Image</label>
                 <input id="input-1" type="file" class="file form-control" name="image" value="">
-                <input type="hidden" name="hidden-image" value="<?php echo $image;?>"/>
+                <input readonly name="hidden-image" value="<?php echo $image;?>"/>
               </div>
               <div class="form-group">
                 <label for="InputPassword1">Description</label>

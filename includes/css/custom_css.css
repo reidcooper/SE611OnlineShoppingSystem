@@ -12,7 +12,8 @@ body {
 }
 
 img {
-  max-width: 100%;
+  max-width: 70%;
+  max-height: 40%;
   height: auto;
   width: auto\9; /* ie8 */
   border: 2px solid black;

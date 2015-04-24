@@ -25,25 +25,20 @@
 
         // Define an array of error
         $error = array();
+        $image = $_POST['hidden-image'];
 
         $allowed = array('image/png', 'image/jpeg', 'image/gif', 'image/jpg');
-        if(is_uploaded_file($_FILES['image']['tmp_name']))
-        {
-          if ($_FILES["image"]["error"] > 0)
-          {
+        if(is_uploaded_file($_FILES['image']['tmp_name'])){
+          if ($_FILES["image"]["error"] > 0){
             echo "Return Code: " . $_FILES["image"]["error"] . "<br>";
-          }
-          else
-          {
+          } else{
             echo "Upload: " . $_FILES["image"]["name"] . "<br>";
             echo "Type: " . $_FILES["image"]["type"] . "<br>";
             echo "Size: " . ($_FILES["image"]["size"] / 1024) . " kB<br>";
-            if (file_exists("includes/images/" . $_FILES["image"]["name"]))
-            {
+            if (file_exists("/includes/images/" . $_FILES["image"]["name"])){
+              echo "Using Stored Photo";
               $image = "includes/images/" . $_FILES["image"]["name"];
-            }
-            else
-            {
+            }else{
               if(in_array($_FILES["image"]["type"], $allowed)){
                 $image = "includes/images/" . $_FILES["image"]["name"];
                 move_uploaded_file($_FILES["image"]["tmp_name"], "includes/images/" . $_FILES["image"]["name"]);
@@ -52,9 +47,6 @@
               }
             }
           }
-        }
-        else {
-          $image = $_POST['hidden-image'];
         }
 
         $name = $_POST['name'];
@@ -109,7 +101,6 @@
 
             // Check to see if anything in $error.
         if (empty($error)){
-
               //Includes database connection file for authorization
           include("includes/db_connection.php");
 
@@ -169,11 +160,11 @@
   </div>
 
   <div class="add-product col-md-6 col-md-offset-3">
-    <h1>Add a Product</h1>
+    <h1>Edit a Product</h1>
     <form action="" method="POST" enctype = "multipart/form-data">
       <div class="form-group">
         <label for="InputName1">Name</label>
-        <input type="name" class="form-control" id="InputName1" name="name" placeholder="Enter Name" value="<?php if(isset($_POST['name'])){ echo $_POST['name'];} else { echo $name;}?>">
+        <input type="name" class="form-control" id="InputName1" name="name" maxlength="254" placeholder="Enter Name" value="<?php if(isset($_POST['name'])){ echo $_POST['name'];} else { echo $name;}?>">
       </div>
       <div class="form-group">
                 <!-- Single button
@@ -189,21 +180,21 @@
               </div>
               <div class="form-group">
                 <label for="InputLastName1">Image</label>
-                <input id="image" type="file" class="file form-control" name="image" value="">
-                <input type="hidden" name="hidden-image" value="<?php echo $image;?>"/>
+                <input id="image" type="file" class="file form-control" name="image">
+                <input readonly name="hidden-image" value="<?php echo $image;?>"/>
               </div>
               <div class="form-group">
                 <label for="InputPassword1">Description</label>
-                <input type="description" class="form-control" id="InputDescription1" name="description" placeholder="Description" value="<?php if(isset($_POST['description'])){ echo $_POST['description'];} else { echo $description;}?>">
+                <input type="description" class="form-control" id="InputDescription1" maxlength="254" name="description" placeholder="Description" value="<?php if(isset($_POST['description'])){ echo $_POST['description'];} else { echo $description;}?>">
               </div>
               <div class="form-group">
                 <label for="InputFeatures1">Features</label>
-                <input type="feature" class="form-control" id="InputFeatures1" name="features" placeholder="Features" value="<?php if(isset($_POST['features'])){ echo $_POST['features'];} else { echo $features;}?>">
+                <input type="feature" class="form-control" id="InputFeatures1" name="features" maxlength="254" placeholder="Features" value="<?php if(isset($_POST['features'])){ echo $_POST['features'];} else { echo $features;}?>">
               </div>
 
               <div class="form-group">
                 <label for="InputConstraints1">Constraints of Products</label>
-                <input type="constraints" class="form-control" id="Input" name="constraints" placeholder="Enter Constraints" value="<?php if(isset($_POST['constraints'])){ echo $_POST['constraints'];} else { echo $constraints;}?>">
+                <input type="constraints" class="form-control" id="Input" name="constraints" maxlength="254" placeholder="Enter Constraints" value="<?php if(isset($_POST['constraints'])){ echo $_POST['constraints'];} else { echo $constraints;}?>">
               </div>
 
               <div class="form-group">
