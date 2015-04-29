@@ -33,6 +33,10 @@ include("includes/header.php");
             $error[] = "You forgot to enter a quantity.";
           }
 
+          if ($quantity > $stock){
+            $error[] = "Not enough in stock.";
+          }
+
           if (!filter_var($quantity, FILTER_VALIDATE_INT)) {
             $error[] = "Enter a valid quantity.";
           }
