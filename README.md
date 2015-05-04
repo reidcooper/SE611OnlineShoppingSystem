@@ -1,6 +1,8 @@
 # SE-611 Online Shopping System
 ====
 
+5/04/15
+
 This repo holds my code for the SE611 Secure Web Service class. The Online Shopping System is a final semester project/assignment for the class.
 
 I am learning PHP for the first time so this has become good practice and learning for me but has also been a fun experience. Some of the HTML/CSS code I have came from the book for the class (PHP and MySQL for Dynamic Web Sites 4th Edition - Larry Ullman).
